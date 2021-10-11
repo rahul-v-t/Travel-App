@@ -2,46 +2,40 @@ import React, {useEffect,useState} from 'react';
 import styled from "styled-components";
 import axios from 'axios';
 import Loca from "../assets/images/place.svg";
-import Logo from "../assets/images/logo.svg";
+import {Link} from "react-router-dom";
+
 export default function Travel() {
     const [places,setPlaces] = useState([]);
     useEffect(() => {
         axios
             .get('https://traveller.talrop.works/api/v1/places/')
             .then(function (response) {
-            console.log(response);
             setPlaces(response.data.data);
             })
             .catch(function (error) {
-            console.log(error);
             });
     }, []);
 
     let renderItems = () => {
         return places.map((place) => (
-            <Lists key={place.id}>
-                <List>
-                    <div><img src={place.image} alt="Image" /></div>
-                    <h3> {place.name} </h3>
-                    <div> <p>  <img src={Loca} alt="Icon" /> <span> {place.location}  </span> </p></div>
+                <List key={place.id}>
+                    <Link to="/place">
+                        <Imagecontainer><Images src={place.image} alt="Image" /></Imagecontainer>
+                        <Name> {place.name} </Name>
+                        <Divplace><Icon><Location src={Loca} alt="Icon" /></Icon><Span>{place.location}</Span></Divplace>
+                    </Link>
                 </List>
-            </Lists>
         ));
     };
     return <>
             <Body>
-            <Header>
-            <Left>
-                <h1><Logoimage src={Logo} alt="Logo" /></h1>
-            </Left>
-            <Right> 
-                <Login>Login</Login>
-            </Right>
-            </Header>
             <Section>
                 <Heading>Welcome</Heading>
                 <P>Explore world around you</P>
-                <div> {renderItems()} </div>;
+                <Lists>
+                {renderItems()}
+                </Lists>
+                 
             </Section>
             </Body>
            </>
@@ -51,28 +45,6 @@ const Body = styled.body `
     width : 90%;
     margin:0 auto;
 `;
-const Header = styled.header `
-    display: flex;
-    justify-content:space-between;
-    margin:20px 0;
-    font-size:16px;
-    font-weight:500;
-    align-items:center;
-`;
-const Left = styled.div `
-`;
-const Login = styled.a `
-    padding:15px 30px;
-    border-radius:4px;
-    background:blue;
-    color:#fff;
-    cursor:pointer;
-`;
-const Right = styled.div `
-`;
-const Logoimage = styled.img `
-    cursor:pointer;
-`; 
 const Section = styled.section `
 `;
 const Heading = styled.h2 `
@@ -88,6 +60,47 @@ const P = styled.p `
     margin-bottom: 30px;
 `;
 const Lists = styled.ul `
+    display: flex;
+    flex-wrap:wrap;
 `;
 const List = styled.li `
+    width:25%;
+    margin-bottom: 30px;
+    &:hover{
+        transform:scale(.9);
+        transition:1s;
+    }
+`;
+const Imagecontainer = styled.div `
+    width: 85%;     
+`;
+const Images = styled.img `
+    display: block;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    cursor :pointer;
+`;
+const Name = styled.h3 `
+    margin-top: 10px;
+    font-size: 24px;
+    color: #000000;
+    font-weight: 600;
+`;
+const Divplace = styled.div `
+    display: flex;
+    align-items:center;
+    margin-top: 10px;
+`;
+const Icon = styled.div `
+    width:5%;
+    margin-right: 10px;
+    cursor: pointer;
+`;
+const Location = styled.img `
+    display: block;
+    width :100%;
+`;
+const Span = styled.span `
+    cursor:pointer;
+    color: #000000;
 `;
