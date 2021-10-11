@@ -19,7 +19,7 @@ export default function Travel() {
     let renderItems = () => {
         return places.map((place) => (
                 <List key={place.id}>
-                    <Link to="/place">
+                    <Link to={`/place/${place.id}`}>
                         <Imagecontainer><Images src={place.image} alt="Image" /></Imagecontainer>
                         <Name> {place.name} </Name>
                         <Divplace><Icon><Location src={Loca} alt="Icon" /></Icon><Span>{place.location}</Span></Divplace>
