@@ -33,11 +33,12 @@ const Header = styled.header `
 const Left = styled.div `
 `;
 const Login = styled.a `
-    padding:15px 30px;
-    border-radius:4px;
-    background:blue;
-    color:#fff;
-    cursor:pointer;
+    padding: 12px 30px;
+    border-radius: 6px;
+    background: blue;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
 `;
 const Right = styled.div `
 `;
